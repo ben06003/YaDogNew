@@ -1,0 +1,152 @@
+apply plugin: 'kotlin-android'
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
+
+android {
+    compileSdkVersion 33
+    defaultConfig {
+        applicationId "com.fu.yadog.new"
+        minSdkVersion 21
+        targetSdkVersion 33
+        versionCode 3
+        versionName "1.0.0"
+    }
+
+    signingConfigs {
+        YaDog {
+            keyAlias 'fu'
+            keyPassword 'abcd1234'
+            storeFile file('D:/AndroidProject/YaDog/Keys/YaDog.jks')
+            storePassword 'abcd1234'
+        }
+    }
+
+    sourceSets {
+        YaDog {
+            manifest.srcFile 'src/yaDog/AndroidManifest.xml'
+        }
+    }
+
+    flavorDimensions "version"
+    productFlavors {
+        YaDog {
+            dimension "version"
+            applicationId "com.fu.yadog.new"
+            versionCode 1
+            versionName "1.0.0"
+            signingConfig signingConfigs.YaDog
+            ReNameApk("YaDog")//Rename Build APK
+        }
+    }
+
+    buildTypes {
+        release {
+            debuggable false
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            ndk {
+                debugSymbolLevel 'SYMBOL_TABLE'
+            }
+        }
+        debug {
+            debuggable true
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//            applicationIdSuffix ".dev"
+            versionNameSuffix "-dev"
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    namespace 'com.mukicloud.mukitest'
+}
+
+dependencies {
+    implementation files('libs/MagicCrypt.jar')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.biometric:biometric:1.1.0'//Biometric
+    implementation 'androidx.recyclerview:recyclerview:1.3.0'
+    implementation 'androidx.lifecycle:lifecycle-service:2.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'com.github.cazaea:sweet-alert-dialog:1.0.0'
+    implementation 'com.google.firebase:firebase-core:21.1.1'
+    implementation 'me.leolin:ShortcutBadger:1.1.22@aar'
+    implementation 'com.pnikosis:materialish-progress:1.7'
+    implementation 'com.facebook.android:facebook-login:15.0.2'
+    implementation 'com.facebook.android:facebook-share:16.0.1'//Facebook share
+    implementation 'com.linecorp:linesdk:latest.release'//Line Login
+    implementation 'com.nightonke:boommenu:2.1.1'//https://github.com/Nightonke/BoomMenu
+    implementation 'com.airbnb.android:lottie:5.2.0'//https://github.com/airbnb/lottie-android
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+    implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:3.0.0-RC3'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    //Keyboard
+    implementation 'org.altbeacon:android-beacon-library:2.19.3'//Beacon
+    implementation 'me.pushy:sdk:1.0.87'
+
+    // Add the Firebase Crashlytics SDK.
+    implementation 'com.google.firebase:firebase-crashlytics:18.3.7'
+    //Firebase iid
+    implementation 'com.google.firebase:firebase-iid:21.1.0'
+    //Firebase Auth
+    implementation platform('com.google.firebase:firebase-bom:31.1.1')
+    implementation 'com.google.firebase:firebase-auth:22.0.0'
+    implementation 'com.google.firebase:firebase-dynamic-links'
+    // Recommended: Add the Firebase SDK for Google Analytics.
+    implementation 'com.google.firebase:firebase-messaging:23.1.2'
+    implementation 'com.google.firebase:firebase-analytics:21.3.0'
+    //Others
+    implementation 'com.wonderkiln:camerakit:0.13.4'//https://github.com/CameraKit/camerakit-android
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'//Crop Image
+    implementation 'com.mylhyl:zxingscanner:2.2.0'//QRCode
+//    implementation 'eu.chainfire:libsuperuser:1.1.0.201907261845'
+    implementation 'mysql:mysql-connector-java:8.0.31'//JDBC
+    implementation 'joda-time:joda-time:2.12.2'
+    implementation 'com.otaliastudios:cameraview:2.7.2'
+    //annotations
+    implementation "com.android.support:support-annotations:28.0.0"
+    //Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.10"
+    //ML Kit
+    implementation 'com.google.mlkit:text-recognition-chinese:16.0.0'
+    //Health
+    implementation 'com.google.android.gms:play-services-fitness:21.1.0'
+    implementation 'com.google.android.gms:play-services-auth:20.6.0'
+    //WebView額外套件
+    implementation "androidx.webkit:webkit:1.7.0"
+    //Video Decoder
+    implementation 'com.google.android.exoplayer:exoplayer:2.18.7'
+    //GIF
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.27'
+    // IAP
+    implementation 'com.android.billingclient:billing:5.0.0'
+    // appsflyer
+    implementation 'com.appsflyer:af-android-sdk:6.12.4'
+    implementation "com.android.installreferrer:installreferrer:2.2"
+}
+
+//Function
+def ReNameApk(APKName) {
+    //Rename Build APK
+    android.applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk') && outputFile.name.contains(APKName)) {
+                //这里修改apk文件名
+                if (outputFile.name.contains('gtest')) {
+                    outputFileName = APKName + "-gtest.apk"
+                } else if (outputFile.name.contains('debug')) {
+                    outputFileName = APKName + "-dev.apk"
+                } else {
+                    outputFileName = APKName + ".apk"
+                }
+            }
+        }
+    }
+}

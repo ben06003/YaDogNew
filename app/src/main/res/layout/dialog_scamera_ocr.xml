@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/FL_Main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- 拍照畫面 -->
+    <FrameLayout
+        android:id="@+id/FL_Camera"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.otaliastudios.cameraview.CameraView android:id="@+id/CV"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cameraSnapshotMaxWidth="3840"
+            app:cameraSnapshotMaxHeight="2160"
+            app:cameraGestureTap="autoFocus"
+            app:cameraGestureLongTap="none"
+            app:cameraGesturePinch="zoom"
+            app:cameraGestureScrollHorizontal="exposureCorrection"
+            app:cameraGestureScrollVertical="none"
+            app:cameraEngine="camera2"
+            app:cameraPreview="glSurface"
+            app:cameraPreviewFrameRate="30"
+            app:cameraPreviewFrameRateExact="false"
+            app:cameraFacing="back"
+            app:cameraHdr="on"
+            app:cameraFlash="off"
+            app:cameraWhiteBalance="auto"
+            app:cameraMode="picture"
+            app:cameraAudio="off"
+            app:cameraGrid="off"
+            app:cameraPlaySounds="false"
+            app:cameraAutoFocusResetDelay="5"
+            app:cameraAutoFocusMarker="@string/cameraview_default_autofocus_marker"
+            app:cameraUseDeviceOrientation="false"
+            app:cameraPictureMetering="true"
+            app:cameraPictureSnapshotMetering="false"
+            app:cameraPictureFormat="jpeg"
+            app:cameraRequestPermissions="true"
+            app:cameraExperimental="false"/>
+
+        <!-- 半透明背景 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+            <!-- 上部分 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="#CFFF"
+                android:gravity="center" />
+
+            <!-- 中部分 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <!-- 中左部分 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#CFFF" />
+                <!-- 拍照用視窗 -->
+                <LinearLayout
+                    android:id="@+id/LN_SC_CameraView"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:background="#0000"
+                    android:orientation="horizontal" />
+                <!-- 中右部分 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#CFFF" />
+
+            </LinearLayout>
+            <!-- 下部分 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="#CFFF"
+                android:gravity="center" />
+        </LinearLayout>
+        <!-- 拍照取消 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:background="#4444"
+            android:minHeight="@dimen/CM_MinHeightE"
+            android:paddingBottom="@dimen/CM_MarginD">
+
+            <Button
+                android:id="@+id/BT_SC_Cancel"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_margin="@dimen/CM_Margin5"
+                android:layout_weight="1"
+                android:text="@string/SC_BT_Cancel"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/CM_TextSizeBig"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <Button
+                android:id="@+id/BT_SC_Capture"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_margin="@dimen/CM_Margin5"
+                android:layout_weight="1"
+                android:text="@string/SC_BT_Confirm"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/CM_TextSizeBig"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </LinearLayout>
+    </FrameLayout>
+
+    <!-- 確認畫面 -->
+    <FrameLayout
+        android:id="@+id/FL_Confirm"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/IMV_Confirm"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:contentDescription="Confirm" />
+
+        <!-- 拍照取消 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:background="#4444"
+            android:minHeight="@dimen/CM_MinHeightE"
+            android:paddingBottom="@dimen/CM_MarginD">
+
+            <Button
+                android:id="@+id/BT_SC_CF_Cancel"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_margin="@dimen/CM_Margin5"
+                android:layout_weight="1"
+                android:text="@string/SC_BT_Cancel"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/CM_TextSizeBig"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <Button
+                android:id="@+id/BT_SC_CF_Confirm"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_margin="@dimen/CM_Margin5"
+                android:layout_weight="1"
+                android:text="@string/SC_BT_ConfirmPic"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/CM_TextSizeBig"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </LinearLayout>
+    </FrameLayout>
+</FrameLayout>

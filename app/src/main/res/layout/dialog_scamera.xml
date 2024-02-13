@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.wonderkiln.camerakit.CameraView xmlns:camerakit="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/CV"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:adjustViewBounds="true"
+        camerakit:ckCropOutput="false"
+        camerakit:ckDoubleTapToToggleFacing="true"
+        camerakit:ckFacing="back"
+        camerakit:ckFlash="off"
+        camerakit:ckFocus="continuous"
+        camerakit:ckJpegQuality="100"
+        camerakit:ckMethod="standard"
+        camerakit:ckPermissions="picture"
+        camerakit:ckPinchToZoom="true" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorGrayText3"
+        android:minHeight="@dimen/CM_MinHeightE"
+        android:padding="@dimen/CM_MarginA">
+
+        <Button
+            android:id="@+id/BT_SC_Facing"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="start|center_vertical"
+            android:layout_margin="@dimen/CM_MarginA"
+            android:background="@drawable/ic_facing"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/BT_SC_Capture"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center|bottom"
+            android:layout_margin="@dimen/CM_MarginA"
+            android:background="@drawable/ic_camera"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <Button
+            android:id="@+id/BT_SC_Flash"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_margin="@dimen/CM_MarginA"
+            android:background="@drawable/selector_flash"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+    </FrameLayout>
+
+</LinearLayout>
